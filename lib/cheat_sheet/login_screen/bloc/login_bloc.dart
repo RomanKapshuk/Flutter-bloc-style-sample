@@ -6,14 +6,18 @@ import 'package:test/cheat_sheet/login_screen/errors.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(InitState()) {
-    on<LoadInitialDataEvent>((event, emit) {
+    on<LoadInitialDataEvent>((event, emit) async {
+      emit(LoadinState());
+
+      await Future.delayed(const Duration(seconds: 1));
+
       emit(InitialDataLoadedState(
         loginHint: 'e.g. \'CoolDude3000\'',
       ));
     });
 
     on<PefromLoginEvent>((event, emit) async {
-      emit(LoadingState());
+      emit(LoginLoadinState());
 
       await Future.delayed(const Duration(seconds: 3));
 
@@ -74,7 +78,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       );
     }
 
-    if (!password.contains(r'\d')) {
+    if (!RegExp(r'\d').hasMatch(password)) {
       return ValidationError(
         field: 'password',
         reason: 'insecure',

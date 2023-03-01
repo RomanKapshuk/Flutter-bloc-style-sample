@@ -16,7 +16,9 @@ class InitialDataLoadedState implements LoginState {
   });
 }
 
-class LoadingState implements LoginState {}
+class LoadinState implements LoginState {}
+
+class LoginLoadinState implements LoginState {}
 
 class LoginSuccessState implements LoginState {}
 
@@ -33,4 +35,3 @@ class ValidationErrorState implements LoginState {
     required this.errors,
   });
 }
-

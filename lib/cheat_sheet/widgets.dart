@@ -29,9 +29,13 @@ class InputFieldState extends State<InputField> {
             hintText: widget.data.hint,
           ),
           onChanged: (value) {
-            widget.data
-              ..value = value
-              ..error = null;
+            widget.data.value = value;
+            // Remove error on editing without thole widget tree rebuild
+            if (widget.data.error != null) {
+              setState(() {
+                widget.data.error = null;
+              });
+            }
           },
         ),
         if (widget.data.error != null)

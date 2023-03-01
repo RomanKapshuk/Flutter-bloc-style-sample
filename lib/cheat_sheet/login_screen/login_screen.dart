@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
         builder: (context, state) {
           return Stack(
             children: [
-              if (state is LoadingState)
+              if (state is LoadinState)
                 const Center(
                   child: CircularProgressIndicator(),
                 ),
@@ -91,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         const Text('Enable Emailing'),
                         Switch.adaptive(
                           value: widget.screenData.isEmailingEnabled,
-                          onChanged: state is LoadingState
+                          onChanged: state is LoginLoadinState
                               ? null
                               : (value) {
                                   setState(() {
@@ -103,11 +103,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     TextField(
                       controller: greetingTextController,
+                      enabled: state is! LoginLoadinState,
                       onChanged: (value) => widget.screenData.greetingText = value,
                     ),
                     TextButton(
-                        child: const Text('LOGIN'),
-                        onPressed: state is LoadingState
+                        child: state is LoginLoadinState ? const Text('Sign in in progress..') : const Text('LOGIN'),
+                        onPressed: state is LoginLoadinState
                             ? null
                             : () {
                                 widget.bloc.add(PefromLoginEvent(
@@ -134,7 +135,11 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   blocListner(context, state) {
-    if (state is LoadingState) {
+    if (state is LoginSuccessState) {
+      Navigator.of(context).pop();
+    }
+
+    if (state is LoginLoadinState) {
       widget.screenData
         ..loginFieldData.enabled = false
         ..passwordFieldData.enabled = false;

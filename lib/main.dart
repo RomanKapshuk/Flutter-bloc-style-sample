@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:test/cheat_sheet/login_screen/login_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,16 +30,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var closePopover = false;
   @override
   Widget build(BuildContext context) {
-    if (closePopover) {
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        Navigator.of(context).popUntil((route) {
-          return route.settings.name != null;
-        });
-      });
-    }
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -50,22 +42,9 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             GestureDetector(
               onTap: () {
-                showGeneralDialog(
-                    context: context,
-                    pageBuilder: (context, _, __) {
-                      return OrientationBuilder(builder: (_, orientation) {
-                        if (orientation != Orientation.portrait) {
-                          WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-                            setState(() {
-                              closePopover = true;
-                            });
-                          });
-                        }
-                        return Text('popover');
-                      });
-                    });
+                navigateToLoginScreen(context);
               },
-              child: Text('Tap'),
+              child: Text('Tap to login'),
             ),
           ],
         ),

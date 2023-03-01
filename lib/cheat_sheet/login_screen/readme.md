@@ -20,3 +20,6 @@ Loading indicator should be over screen.
 Additional requirements:
 
 If user start editing the input field with error — remove error only under the field user editing
+
+
+Navigate back on success
