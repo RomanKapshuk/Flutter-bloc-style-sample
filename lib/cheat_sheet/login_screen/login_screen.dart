@@ -22,8 +22,8 @@ void navigateToLoginScreen(BuildContext context) {
 class LoginScreenData {
   bool isEmailingEnabled = true;
 
-  final loginFieldData = InputFieldData()..hint = 'e.g. CoolDude3000';
-  final passwordFieldData = InputFieldData();
+  final loginFieldData = InputFieldData()..hint;
+  final passwordFieldData = InputFieldData()..hint = 'password should be here';
   String greetingText = '';
 
   VerificationError? verificationError;
